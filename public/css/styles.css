@@ -1,17 +1,23 @@
 :root {
-  --navy: #0a1830;
-  --navy-mid: #10254a;
-  --navy-light: #1a3566;
-  --navy-card: #142c56;
-  --gold: #d4af37;
-  --gold-bright: #f2cd5c;
-  --win: #2fae66;
-  --loss: #c0525e;
-  --text: #eef1f7;
-  --text-dim: #a9b6cf;
-  --border: rgba(212, 175, 55, 0.25);
+  --navy: #1b3a6b;
+  --navy-mid: #15305a;
+  --navy-dark: #0d1f3c;
+  --gold: #c9a84c;
+  --gold-light: #d4b85e;
+  --white: #ffffff;
+  --bg: #f7f7f7;
+  --bg-subtle: #f0efed;
+  --border: #e8e8e8;
+  --text-head: #222222;
+  --text-body: #484848;
+  --text-light: #717171;
+  --win: #218a53;
+  --win-bg: #e8f5ec;
+  --loss: #b3404c;
+  --loss-bg: #fbeced;
   --radius: 14px;
   --tap-min: 48px;
+  --shadow: 0 1px 3px rgba(13, 31, 60, 0.08);
 }
 
 * {
@@ -22,8 +28,8 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: var(--navy);
-  color: var(--text);
+  background: var(--bg);
+  color: var(--text-body);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-tap-highlight-color: transparent;
 }
@@ -44,6 +50,14 @@ button {
   font-family: inherit;
 }
 
+.icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
 #app {
   max-width: 560px;
   margin: 0 auto;
@@ -58,8 +72,7 @@ button {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: linear-gradient(180deg, var(--navy-mid), var(--navy));
-  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--navy), var(--navy-mid));
   padding: 10px 16px;
   display: flex;
   align-items: center;
@@ -69,7 +82,7 @@ button {
 
 .topbar .brand {
   font-size: 1.05rem;
-  color: var(--gold-bright);
+  color: var(--white);
   letter-spacing: 0.02em;
   white-space: nowrap;
   overflow: hidden;
@@ -77,7 +90,7 @@ button {
 }
 
 .balance-pill {
-  background: var(--navy-card);
+  background: var(--navy-dark);
   border: 1px solid var(--gold);
   border-radius: 999px;
   padding: 6px 14px;
@@ -91,14 +104,14 @@ button {
 
 .balance-pill .label {
   font-size: 0.65rem;
-  color: var(--text-dim);
+  color: rgba(255, 255, 255, 0.65);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 600;
 }
 
 .balance-pill .amount {
-  color: var(--gold-bright);
+  color: var(--gold-light);
   font-family: 'Courier New', monospace;
 }
 
@@ -113,12 +126,12 @@ main {
 .tab-title {
   margin: 4px 0 14px;
   font-size: 1.3rem;
-  color: var(--gold-bright);
+  color: var(--text-head);
 }
 
 .empty-state {
   text-align: center;
-  color: var(--text-dim);
+  color: var(--text-light);
   padding: 48px 16px;
   font-size: 0.95rem;
 }
@@ -126,9 +139,10 @@ main {
 /* --- cards --- */
 
 .card {
-  background: var(--navy-card);
+  background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  box-shadow: var(--shadow);
   padding: 16px;
   margin-bottom: 14px;
 }
@@ -145,10 +159,11 @@ main {
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 1.1rem;
   margin: 0;
+  color: var(--text-head);
 }
 
 .card-desc {
-  color: var(--text-dim);
+  color: var(--text-light);
   font-size: 0.85rem;
   margin: 0 0 10px;
 }
@@ -164,23 +179,23 @@ main {
 }
 
 .status-open {
-  background: rgba(47, 174, 102, 0.15);
+  background: var(--win-bg);
   color: var(--win);
 }
 
 .status-locked {
-  background: rgba(212, 175, 55, 0.15);
-  color: var(--gold-bright);
+  background: rgba(201, 168, 76, 0.16);
+  color: #8a6d1f;
 }
 
 .status-settled {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-dim);
+  background: var(--bg-subtle);
+  color: var(--text-light);
 }
 
 .disclaimer {
   font-size: 0.72rem;
-  color: var(--text-dim);
+  color: var(--text-light);
   font-style: italic;
   margin: 0 0 10px;
 }
@@ -203,28 +218,29 @@ main {
   flex: 1;
   font-weight: 600;
   font-size: 0.95rem;
+  color: var(--text-head);
 }
 
 .outcome-odds {
   font-family: 'Courier New', monospace;
   font-weight: 700;
   font-size: 1rem;
-  color: var(--gold-bright);
+  color: var(--gold);
   min-width: 58px;
   text-align: right;
 }
 
 .outcome-odds.negative {
-  color: #9fb4e0;
+  color: var(--navy);
 }
 
 .wager-input {
   width: 84px;
   min-height: var(--tap-min);
-  background: var(--navy-light);
+  background: var(--white);
   border: 1px solid var(--border);
   border-radius: 8px;
-  color: var(--text);
+  color: var(--text-head);
   padding: 8px 10px;
   font-size: 1rem;
   text-align: right;
@@ -234,7 +250,7 @@ main {
   min-height: var(--tap-min);
   padding: 0 16px;
   background: var(--gold);
-  color: var(--navy);
+  color: var(--navy-dark);
   border: none;
   border-radius: 8px;
   font-weight: 700;
@@ -248,18 +264,26 @@ main {
 }
 
 .outcome-row.is-winner {
-  background: rgba(212, 175, 55, 0.08);
+  background: var(--win-bg);
   border-radius: 8px;
   margin: 0 -8px;
   padding: 10px 8px;
 }
 
 .winner-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-size: 0.65rem;
   color: var(--win);
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 0.04em;
+}
+
+.winner-tag .icon {
+  width: 14px;
+  height: 14px;
 }
 
 /* --- bet history --- */
@@ -284,11 +308,12 @@ main {
 .bet-item .bet-event {
   font-weight: 600;
   font-size: 0.9rem;
+  color: var(--text-head);
 }
 
 .bet-item .bet-sub {
   font-size: 0.78rem;
-  color: var(--text-dim);
+  color: var(--text-light);
 }
 
 .bet-result {
@@ -307,7 +332,7 @@ main {
 }
 
 .bet-result.pending {
-  color: var(--text-dim);
+  color: var(--text-light);
   font-style: italic;
   font-weight: 400;
 }
@@ -321,30 +346,33 @@ main {
   padding: 12px 14px;
   border-radius: 10px;
   margin-bottom: 6px;
-  background: var(--navy-card);
+  background: var(--white);
   border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 .leader-row.is-me {
   border-color: var(--gold);
-  background: rgba(212, 175, 55, 0.08);
+  background: #fdf9ef;
 }
 
 .leader-rank {
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 1.1rem;
-  color: var(--gold-bright);
+  color: var(--gold);
   min-width: 26px;
 }
 
 .leader-name {
   flex: 1;
   font-weight: 600;
+  color: var(--text-head);
 }
 
 .leader-balance {
   font-family: 'Courier New', monospace;
   font-weight: 700;
+  color: var(--text-head);
 }
 
 /* --- forms --- */
@@ -356,7 +384,7 @@ main {
 .field label {
   display: block;
   font-size: 0.78rem;
-  color: var(--text-dim);
+  color: var(--text-light);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 6px;
@@ -366,10 +394,10 @@ main {
 .field textarea {
   width: 100%;
   min-height: var(--tap-min);
-  background: var(--navy-light);
+  background: var(--white);
   border: 1px solid var(--border);
   border-radius: 8px;
-  color: var(--text);
+  color: var(--text-head);
   padding: 10px 12px;
   font-size: 1rem;
 }
@@ -404,21 +432,29 @@ main {
   font-size: 0.9rem;
   cursor: pointer;
   width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .btn-primary {
   background: var(--gold);
-  color: var(--navy);
+  color: var(--navy-dark);
+}
+
+.btn-primary:hover {
+  background: var(--gold-light);
 }
 
 .btn-secondary {
-  background: transparent;
-  border: 1px solid var(--gold);
-  color: var(--gold-bright);
+  background: var(--white);
+  border: 1px solid var(--navy);
+  color: var(--navy);
 }
 
 .btn-danger {
-  background: transparent;
+  background: var(--white);
   border: 1px solid var(--loss);
   color: var(--loss);
 }
@@ -448,8 +484,7 @@ main {
   left: 0;
   right: 0;
   z-index: 30;
-  background: var(--navy-mid);
-  border-top: 1px solid var(--border);
+  background: var(--navy);
   display: flex;
   justify-content: center;
   padding-bottom: env(safe-area-inset-bottom);
@@ -465,7 +500,7 @@ main {
   flex: 1;
   background: none;
   border: none;
-  color: var(--text-dim);
+  color: rgba(255, 255, 255, 0.6);
   min-height: 60px;
   display: flex;
   flex-direction: column;
@@ -479,11 +514,12 @@ main {
 }
 
 .tab-btn .icon {
-  font-size: 1.15rem;
+  width: 22px;
+  height: 22px;
 }
 
 .tab-btn.active {
-  color: var(--gold-bright);
+  color: var(--gold-light);
 }
 
 /* --- name select / admin login screens --- */
@@ -496,16 +532,17 @@ main {
   justify-content: center;
   padding: 32px 20px;
   text-align: center;
+  background: var(--bg);
 }
 
 .screen h1 {
-  color: var(--gold-bright);
+  color: var(--navy);
   font-size: 1.8rem;
   margin-bottom: 4px;
 }
 
 .screen .subtitle {
-  color: var(--text-dim);
+  color: var(--text-light);
   margin-bottom: 28px;
   font-size: 0.9rem;
 }
@@ -520,29 +557,37 @@ main {
 
 .name-btn {
   min-height: 56px;
-  background: var(--navy-card);
+  background: var(--white);
   border: 1px solid var(--border);
   border-radius: 10px;
-  color: var(--text);
+  color: var(--text-head);
   font-weight: 700;
   font-size: 0.95rem;
   cursor: pointer;
+  box-shadow: var(--shadow);
 }
 
 .admin-link {
   margin-top: 24px;
   background: none;
   border: none;
-  color: var(--text-dim);
-  text-decoration: underline;
+  color: var(--text-light);
   font-size: 0.85rem;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.admin-link .icon {
+  width: 14px;
+  height: 14px;
 }
 
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(13, 31, 60, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -551,26 +596,28 @@ main {
 }
 
 .modal {
-  background: var(--navy-card);
-  border: 1px solid var(--gold);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold);
   border-radius: var(--radius);
   padding: 22px;
   width: 100%;
   max-width: 360px;
+  box-shadow: 0 8px 24px rgba(13, 31, 60, 0.25);
 }
 
 .modal h3 {
   margin-top: 0;
-  color: var(--gold-bright);
+  color: var(--text-head);
 }
 
 .pin-input {
   width: 100%;
   min-height: var(--tap-min);
-  background: var(--navy-light);
+  background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 8px;
-  color: var(--text);
+  color: var(--text-head);
   padding: 10px 12px;
   font-size: 1.4rem;
   letter-spacing: 0.3em;
@@ -589,14 +636,14 @@ main {
   bottom: 76px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--navy-card);
+  background: var(--navy-dark);
   border: 1px solid var(--gold);
-  color: var(--text);
+  color: var(--white);
   padding: 10px 18px;
   border-radius: 999px;
   font-size: 0.85rem;
   z-index: 60;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 16px rgba(13, 31, 60, 0.3);
 }
 
 /* --- admin sub-tabs --- */
@@ -610,9 +657,9 @@ main {
 
 .subtab-btn {
   flex-shrink: 0;
-  background: var(--navy-card);
+  background: var(--white);
   border: 1px solid var(--border);
-  color: var(--text-dim);
+  color: var(--text-light);
   padding: 8px 14px;
   border-radius: 999px;
   font-size: 0.8rem;
@@ -622,7 +669,8 @@ main {
 
 .subtab-btn.active {
   border-color: var(--gold);
-  color: var(--gold-bright);
+  background: #fdf9ef;
+  color: var(--navy);
 }
 
 .roster-row {
@@ -640,15 +688,16 @@ main {
 .roster-row .roster-name {
   flex: 1;
   font-weight: 600;
+  color: var(--text-head);
 }
 
 .roster-row input[type='number'] {
   width: 90px;
   min-height: 40px;
-  background: var(--navy-light);
+  background: var(--white);
   border: 1px solid var(--border);
   border-radius: 8px;
-  color: var(--text);
+  color: var(--text-head);
   padding: 6px 8px;
   text-align: right;
   font-family: 'Courier New', monospace;
@@ -657,16 +706,39 @@ main {
 .icon-btn {
   min-width: 40px;
   min-height: 40px;
-  background: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
   border: 1px solid var(--border);
   border-radius: 8px;
-  color: var(--text-dim);
+  color: var(--text-light);
   cursor: pointer;
+}
+
+.icon-btn .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.icon-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.icon-btn.danger {
+  color: var(--loss);
+  border-color: var(--loss);
+}
+
+.icon-btn.success {
+  color: var(--win);
+  border-color: var(--win);
 }
 
 .footer-note {
   text-align: center;
-  color: var(--text-dim);
+  color: var(--text-light);
   font-size: 0.72rem;
   margin-top: 20px;
   padding: 0 8px;

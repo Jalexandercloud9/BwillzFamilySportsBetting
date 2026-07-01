@@ -1,6 +1,7 @@
 import { api } from './api.js';
 import { state, setCurrentPlayer, setAdminPin, isAdmin, currentPlayer, applyServerState } from './state.js';
 import { formatMoney } from './format.js';
+import { icon } from './icons.js';
 import { renderNameSelect, renderAdminLoginModal } from './views/nameSelect.js';
 import { renderEvents } from './views/events.js';
 import { renderMyBets } from './views/myBets.js';
@@ -73,19 +74,19 @@ function renderTopbar() {
 
 function renderTabbar() {
   const tabs = [
-    ['events', '🏆', 'Events'],
-    ['mybets', '🎟️', 'My Bets'],
-    ['leaderboard', '📊', 'Board'],
+    ['events', 'trophy', 'Events'],
+    ['mybets', 'ticket', 'My Bets'],
+    ['leaderboard', 'bar-chart-2', 'Board'],
   ];
-  if (isAdmin()) tabs.push(['admin', '🛠️', 'Admin']);
+  if (isAdmin()) tabs.push(['admin', 'settings', 'Admin']);
   return `
     <div class="tabbar">
       <div class="tabbar-inner">
         ${tabs
           .map(
-            ([key, icon, label]) => `
+            ([key, iconName, label]) => `
               <button class="tab-btn${state.tab === key ? ' active' : ''}" data-action="switch-tab" data-tab="${key}">
-                <span class="icon">${icon}</span><span>${label}</span>
+                ${icon(iconName)}<span>${label}</span>
               </button>
             `
           )
@@ -105,8 +106,8 @@ function renderMain() {
 function renderFooterNote() {
   return `
     <p class="footer-note">
-      ${!isAdmin() ? '<button class="admin-link" data-action="open-admin-login">Admin</button>' : ''}
-      ${currentPlayer() ? `<button class="admin-link" data-action="switch-player">Switch player</button>` : ''}
+      ${!isAdmin() ? `<button class="admin-link" data-action="open-admin-login">${icon('lock')} Admin</button>` : ''}
+      ${currentPlayer() ? `<button class="admin-link" data-action="switch-player">${icon('repeat')} Switch player</button>` : ''}
     </p>
   `;
 }

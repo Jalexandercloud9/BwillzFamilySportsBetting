@@ -1,5 +1,6 @@
 import { state, currentPlayer } from '../state.js';
 import { formatOdds, escapeHtml } from '../format.js';
+import { icon } from '../icons.js';
 
 function outcomeRow(event, outcome, { bettable }) {
   const player = currentPlayer();
@@ -28,7 +29,7 @@ function outcomeRow(event, outcome, { bettable }) {
       >Bet</button>
     `
     : isWinner
-      ? '<span class="winner-tag">Winner</span>'
+      ? `<span class="winner-tag">${icon('award')} Winner</span>`
       : '';
 
   return `

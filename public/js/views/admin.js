@@ -1,5 +1,6 @@
 import { state } from '../state.js';
 import { formatOdds, escapeHtml } from '../format.js';
+import { icon } from '../icons.js';
 
 export const createEventDraft = {
   title: '',
@@ -55,7 +56,7 @@ function renderCreateEvent() {
         <div class="outcome-edit-row" data-outcome-edit-row data-index="${i}">
           <input name="label" placeholder="Who / what (e.g. Dad)" value="${escapeHtml(o.label)}" />
           <input name="odds" type="number" placeholder="+150 or -200" value="${escapeHtml(o.odds)}" />
-          <button type="button" class="icon-btn" data-action="remove-outcome-row" data-index="${i}" ${createEventDraft.outcomes.length <= 2 ? 'disabled' : ''}>✕</button>
+          <button type="button" class="icon-btn" data-action="remove-outcome-row" data-index="${i}" ${createEventDraft.outcomes.length <= 2 ? 'disabled' : ''}>${icon('x')}</button>
         </div>
       `
     )
@@ -83,13 +84,13 @@ function renderCreateEvent() {
             numbers like +150 or -200 &mdash; nothing between -99 and 99.
           </p>
           ${outcomeRows}
-          <button type="button" class="btn btn-secondary btn-small" data-action="add-outcome-row">+ Add outcome</button>
+          <button type="button" class="btn btn-secondary btn-small" data-action="add-outcome-row">${icon('plus')} Add outcome</button>
         </div>
         <div class="field">
           <label>Close time (optional)</label>
           <input name="closeTime" type="datetime-local" value="${escapeHtml(createEventDraft.closeTime)}" />
         </div>
-        <button type="submit" class="btn btn-primary">Create Event</button>
+        <button type="submit" class="btn btn-primary">${icon('check')} Create Event</button>
       </form>
     </div>
   `;
@@ -116,8 +117,8 @@ function manageEventCard(event) {
       </div>
       ${hasBets ? '<p class="disclaimer">This event already has bets. Changing odds applies to ALL bets on that outcome, at settlement time.</p>' : ''}
       <div class="btn-row">
-        <button class="btn btn-secondary btn-small" data-action="save-odds" data-event-id="${event.id}" data-has-bets="${hasBets}">Save Odds</button>
-        <button class="btn btn-primary btn-small" data-action="lock-event" data-event-id="${event.id}">Lock Event</button>
+        <button class="btn btn-secondary btn-small" data-action="save-odds" data-event-id="${event.id}" data-has-bets="${hasBets}">${icon('check')} Save Odds</button>
+        <button class="btn btn-primary btn-small" data-action="lock-event" data-event-id="${event.id}">${icon('lock')} Lock Event</button>
       </div>
     `;
   } else if (event.status === 'locked') {
@@ -130,15 +131,15 @@ function manageEventCard(event) {
         <select data-settle-select="${event.id}">${options}</select>
       </div>
       <div class="btn-row">
-        <button class="btn btn-secondary btn-small" data-action="reopen-event" data-event-id="${event.id}">Reopen</button>
-        <button class="btn btn-primary btn-small" data-action="settle-event" data-event-id="${event.id}">Settle</button>
+        <button class="btn btn-secondary btn-small" data-action="reopen-event" data-event-id="${event.id}">${icon('unlock')} Reopen</button>
+        <button class="btn btn-primary btn-small" data-action="settle-event" data-event-id="${event.id}">${icon('check-circle')} Settle</button>
       </div>
     `;
   } else {
     const winner = event.outcomes.find((o) => o.id === event.winningOutcomeId);
     body = `
       <p class="card-desc">Winner: <strong>${escapeHtml(winner?.label || '—')}</strong></p>
-      <button class="btn btn-danger btn-small" data-action="undo-settle" data-event-id="${event.id}">Undo Settlement</button>
+      <button class="btn btn-danger btn-small" data-action="undo-settle" data-event-id="${event.id}">${icon('rotate-ccw')} Undo Settlement</button>
     `;
   }
 
@@ -164,10 +165,10 @@ function renderManageEvents() {
 function rosterRow(player) {
   return `
     <div class="roster-row">
-      <div class="roster-name">${escapeHtml(player.name)}${player.isAdmin ? ' ⭐' : ''}</div>
+      <div class="roster-name">${escapeHtml(player.name)}${player.isAdmin ? ` ${icon('award')}` : ''}</div>
       <input type="number" data-balance-input="${player.id}" value="${player.balance}" />
-      <button class="icon-btn" data-action="save-balance" data-player-id="${player.id}" title="Save">💾</button>
-      <button class="icon-btn" data-action="remove-player" data-player-id="${player.id}" title="Remove">✕</button>
+      <button class="icon-btn success" data-action="save-balance" data-player-id="${player.id}" title="Save">${icon('check')}</button>
+      <button class="icon-btn danger" data-action="remove-player" data-player-id="${player.id}" title="Remove">${icon('trash-2')}</button>
     </div>
   `;
 }
@@ -181,7 +182,7 @@ function renderRoster() {
       <form class="field" style="margin-top:14px;" data-form="add-player">
         <label>Add player</label>
         <input name="name" placeholder="Family member name" required />
-        <button type="submit" class="btn btn-primary btn-small" style="margin-top:8px;">Add Player</button>
+        <button type="submit" class="btn btn-primary btn-small" style="margin-top:8px;">${icon('user-plus')} Add Player</button>
       </form>
     </div>
     <div class="card">
@@ -189,11 +190,11 @@ function renderRoster() {
       <p class="card-desc">Applies to every player right now. Use this to reset for a new day/session.</p>
       <form class="field" data-form="starting-balance">
         <input name="amount" type="number" min="0" value="${state.startingBalance}" />
-        <button type="submit" class="btn btn-secondary btn-small" style="margin-top:8px;">Apply to All Players</button>
+        <button type="submit" class="btn btn-secondary btn-small" style="margin-top:8px;">${icon('rotate-ccw')} Apply to All Players</button>
       </form>
     </div>
     <div class="card">
-      <button class="btn btn-secondary" data-action="admin-logout">Log Out of Admin</button>
+      <button class="btn btn-secondary" data-action="admin-logout">${icon('unlock')} Log Out of Admin</button>
     </div>
   `;
 }

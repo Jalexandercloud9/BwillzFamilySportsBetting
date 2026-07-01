@@ -1,5 +1,6 @@
 import { state } from '../state.js';
 import { escapeHtml } from '../format.js';
+import { icon } from '../icons.js';
 
 export function renderNameSelect() {
   const buttons = state.players
@@ -11,7 +12,7 @@ export function renderNameSelect() {
       <h1>Who are you?</h1>
       <p class="subtitle">Pick your name to start betting.</p>
       <div class="name-grid">${buttons || '<p class="empty-state">No players yet. Ask the admin to add the roster.</p>'}</div>
-      <button class="admin-link" data-action="open-admin-login">I'm the admin</button>
+      <button class="admin-link" data-action="open-admin-login">${icon('lock')} I'm the admin</button>
     </div>
   `;
 }
