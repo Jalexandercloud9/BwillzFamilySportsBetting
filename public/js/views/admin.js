@@ -53,8 +53,8 @@ function renderCreateEvent() {
     .map(
       (o, i) => `
         <div class="outcome-edit-row" data-outcome-edit-row data-index="${i}">
-          <input name="label" placeholder="Outcome label" value="${escapeHtml(o.label)}" />
-          <input name="odds" type="number" placeholder="Odds (e.g. -200)" value="${escapeHtml(o.odds)}" />
+          <input name="label" placeholder="Who / what (e.g. Dad)" value="${escapeHtml(o.label)}" />
+          <input name="odds" type="number" placeholder="+150 or -200" value="${escapeHtml(o.odds)}" />
           <button type="button" class="icon-btn" data-action="remove-outcome-row" data-index="${i}" ${createEventDraft.outcomes.length <= 2 ? 'disabled' : ''}>✕</button>
         </div>
       `
@@ -74,7 +74,14 @@ function renderCreateEvent() {
           <textarea name="description">${escapeHtml(createEventDraft.description)}</textarea>
         </div>
         <div class="field">
-          <label>Outcomes &amp; American Odds</label>
+          <label>Who could win, and their odds</label>
+          <p class="disclaimer">
+            One row per possible winner. The number on the right sets the payout: a
+            <strong>positive</strong> number like <strong>+150</strong> is an underdog
+            (bet $100 to win $150); a <strong>negative</strong> number like
+            <strong>-200</strong> is a favorite (bet $200 to win $100). Use whole
+            numbers like +150 or -200 &mdash; nothing between -99 and 99.
+          </p>
           ${outcomeRows}
           <button type="button" class="btn btn-secondary btn-small" data-action="add-outcome-row">+ Add outcome</button>
         </div>
@@ -91,7 +98,7 @@ function renderCreateEvent() {
 function manageOddsRow(event, outcome) {
   return `
     <div class="outcome-edit-row" data-odds-edit-row>
-      <input value="${escapeHtml(outcome.label)}" disabled />
+      <input name="label" value="${escapeHtml(outcome.label)}" disabled />
       <input name="odds-${outcome.id}" type="number" value="${outcome.odds}" data-outcome-id="${outcome.id}" />
     </div>
   `;

@@ -385,12 +385,14 @@ main {
   margin-bottom: 8px;
 }
 
-.outcome-edit-row input:first-child {
-  flex: 2;
+.outcome-edit-row input {
+  width: auto;
+  min-width: 0;
+  flex: 1;
 }
 
-.outcome-edit-row input:last-child {
-  flex: 1;
+.outcome-edit-row input[name='label'] {
+  flex: 2;
 }
 
 .btn {
